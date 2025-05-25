@@ -38,6 +38,7 @@ async def get(dbid:str,s:int=None,e:int=None):
     id_url = f"https://vidsrc.to/embed/{media}/{dbid}" + (f"/{s}/{e}" if s and e else '')
     print(f"VIDRC URL is ===> {id_url}")
     id_request = await fetch(id_url)
+    print(f"id_request is ===> {id_request}")
     if id_request.status_code == 200:
         try:
             soup = BeautifulSoup(id_request.text, "html.parser")
