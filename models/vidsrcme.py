@@ -44,12 +44,10 @@ async def get(dbid,s=None,e=None,l='eng'):
 
     # MAKE API REQUEST TO GET ID(hash)
     id_url = f"https://vidsrc.me/embed/{dbid}" + (f"/{s}-{e}" if s and e else '')
-    print(f"VIDRC.ME URL is ===> {id_url}")
     id_request = await fetch(id_url)
-    print(f"id_request is ===> {id_request}")
     _html = BeautifulSoup(id_request.text, "html.parser")
-    print(f"_html ===> {_html}")
     SOURCE_RESULTS = [{"name": attr.text, "hash": attr.get("data-hash")} for attr in _html.find_all("div", {"class": "server"}) if attr.text in SOURCES]
+    print(f"SOURCE_RESULTS ===> {SOURCE_RESULTS}")
 
     # REQUEST THE SOURCE
     SOURCE_STREAMS = await asyncio.gather(
